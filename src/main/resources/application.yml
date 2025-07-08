@@ -1,0 +1,48 @@
+server:
+  port: ${SERVER_PORT:8082}
+spring:
+  application:
+    name: payment-service
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://localhost:5434/payment?currentSchema=public}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:admin}
+
+  flyway:
+    url: ${DB_URL:jdbc:postgresql://localhost:5434/payment?currentSchema=public}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:admin}
+    locations:
+      - classpath:db/migration
+    table: schema_version
+    enabled: true
+    baseline-on-migrate: false
+    baseline-version: 1
+
+  devtools:
+    remote:
+      secret: 123
+
+payment:
+  withdraw-fee: ${WITHDRAW_FEE:0.1}
+  provider-feign-url: ${PAYMENT_PROVIDER_URL:http://mockoon.tools.getontop.com:3000/api/v1}
+  min-amount: ${MIN_AMOUNT:100}
+  source:
+    type: ${SOURCE_TYPE:COMPANY}
+    source-information-name: ${SOURCE_INFORMATION_NAME:ONTOP INC}
+    account-number: ${SOURCE_ACCOUNT_NUMBER:0245253419}
+    account-currency: ${SOURCE_ACCOUNT_CURRENCY:USD}
+    account-routing-number: ${SOURCE_ACCOUNT_ROUTING_NUMBER:028444018}
+
+wallet:
+  service_url: ${WALLET_SERVICE_URL:http://mockoon.tools.getontop.com:3000/wallets}
