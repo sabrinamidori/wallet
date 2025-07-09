@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Data
 @Builder
@@ -28,9 +27,6 @@ public class PaymentDTO {
     private PaymentStatus status;
     private String externalId;
 
-    public BigDecimal getTotal() {
-        return Optional.ofNullable(amount).orElse(BigDecimal.ZERO).subtract(Optional.ofNullable(feeAmount).orElse(BigDecimal.ZERO));
-    }
     public PaymentDTO(Payment payment) {
         this.id = payment.getId();
         this.userId = payment.getUserId();

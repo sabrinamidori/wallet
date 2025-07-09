@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ontop.assessment.payment.domain.dto.BalanceDTO;
-import com.ontop.assessment.payment.domain.dto.PaymentResponseDTO;
 import com.ontop.assessment.payment.domain.dto.TransactionDTO;
 import com.ontop.assessment.payment.domain.dto.TransactionResponseDTO;
 import com.ontop.assessment.payment.domain.port.WalletServicePort;

@@ -8,7 +8,6 @@ import com.ontop.assessment.payment.domain.dto.PaymentResponseDTO;
 import com.ontop.assessment.payment.domain.dto.SourceAccountDTO;
 import com.ontop.assessment.payment.domain.payment.Payment;
 import com.ontop.assessment.payment.domain.port.PaymentProviderPort;
-import com.ontop.assessment.payment.infrastructure.config.exception.InvalidOperationException;
 import com.ontop.assessment.payment.infrastructure.config.exception.UnprocessableEntityException;
 import com.ontop.assessment.payment.util.mapper.PaymentResponseMapper;
 import com.ontop.assessment.payment.util.mapper.WithdrawMapper;

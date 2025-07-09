@@ -1,6 +1,5 @@
 package com.ontop.assessment.payment.infrastructure.config.exception;
 
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -9,9 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,26 +26,16 @@ public class GlobalExceptionHandler {
                 request.getDescription(false));
     }
 
-    @ExceptionHandler(value = {ConstraintViolationException.class})
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorDetails constraintViolationException(ConstraintViolationException ex) {
-        List<String> errors = new ArrayList<>() ;
-        for (var violation : ex.getConstraintViolations()) {
-            errors.add(String.format("%s: %s",violation.getPropertyPath().toString(), violation.getMessage()));
-        }
-        return new ErrorDetails(ErrorsCode.INVALID_BODY.getCode(), String.join(" ,", errors),
-                ex.getMessage());
-    }
-
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorDetails validationException(ErrorResponse ex) {
-        List<String> errors = new ArrayList<>() ;
+        StringJoiner joiner = new StringJoiner(", ");
         for (var violation : Objects.requireNonNull(ex.getDetailMessageArguments())) {
-            errors.add(violation.toString());
+            joiner.add(violation.toString());
         }
         return new ErrorDetails(ErrorsCode.INVALID_BODY.getCode(),
-                String.join(" ,", errors), ex.getBody().getDetail());
+                joiner.toString(),
+                ex.getBody().getDetail());
     }
 
     @ExceptionHandler(value = {UnprocessableEntityException.class})

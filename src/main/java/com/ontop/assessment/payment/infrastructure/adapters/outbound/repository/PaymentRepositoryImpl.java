@@ -1,6 +1,5 @@
 package com.ontop.assessment.payment.infrastructure.adapters.outbound.repository;
 
-import com.ontop.assessment.payment.domain.payment.PaymentStatus;
 import com.ontop.assessment.payment.infrastructure.adapters.outbound.entity.JpaPaymentEntity;
 import com.ontop.assessment.payment.domain.port.PaymentRepositoryPort;
 import com.ontop.assessment.payment.domain.payment.Payment;
@@ -50,11 +49,5 @@ public class PaymentRepositoryImpl implements PaymentRepositoryPort {
         paymentEntity.setUpdatedAt(LocalDateTime.now(ZoneOffset.UTC));
 
         return paymentMapper.entityToDomain(paymentRepository.save(paymentEntity));
-    }
-
-    @Override
-    @Transactional
-    public void updateStatus(long paymentId, PaymentStatus status) {
-        paymentRepository.updateStatusById(status.getCode(), paymentId);
     }
 }

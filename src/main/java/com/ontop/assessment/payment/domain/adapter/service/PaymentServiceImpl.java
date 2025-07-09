@@ -64,7 +64,7 @@ public class PaymentServiceImpl implements PaymentServicePort {
             paymentRepository.update(payment.getId(), payment);
             throw e;
         }
-        paymentRepository.update(payment.getId(), payment);
+        payment = paymentRepository.update(payment.getId(), payment);
         return new PaymentDTO(payment);
     }
 

@@ -11,8 +11,6 @@ public interface BankAccountMapper {
 
     BankAccountMapper INSTANCE = Mappers.getMapper(BankAccountMapper.class);
 
-    BankAccountDTO providerRequestToDto(AccountInfo request);
-
     AccountInfo dtoToProviderRequest(BankAccountDTO dto);
 
 }
