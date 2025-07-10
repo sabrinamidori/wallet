@@ -152,6 +152,36 @@
 					"header": null,
 					"cookie": [],
 					"body": null
+				},
+				{
+					"name": "400-No Balance",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1000,\n    \"account_id\": 1,\n    \"currency\": \"USD\",\n    \"holder_name\": \"TONY STARK\",\n    \"account_number\": \"1885226711\",\n    \"routing_number\": \"211927207\",\n    \"amount\": 3000\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{url}}/payment",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payment"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
 				}
 			]
 		}
@@ -159,7 +189,7 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "localhost:8082",
+			"value": "localhost:8081",
 			"type": "default"
 		}
 	]

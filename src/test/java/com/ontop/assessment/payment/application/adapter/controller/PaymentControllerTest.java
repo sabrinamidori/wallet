@@ -119,4 +119,18 @@ class PaymentControllerTest {
                 .andExpect(jsonPath("$.code", Is.is(WalletError.INVALID_USER.getCode())))
                 .andExpect(jsonPath("$.message", StringContains.containsString("user not found")));
     }
+
+    @Test
+    void testSendMoneyNotEnoughBalance() throws Exception {
+        var resource = WithdrawRequestDTO.builder()
+                .accountId(1L).accountNumber("1885226711").routingNumber("211927207")
+                .userId(404L).currency("USD").holderName("TONY STARK")
+                .amount(BigDecimal.valueOf(3000)).build();
+        this.mockMvc.perform(post(PAYMENT_PATH).contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(resource)))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.code", Is.is(ErrorsCode.NOT_ENOUGH_BALANCE.getCode())))
+                .andExpect(jsonPath("$.message", StringContains.containsString("Insufficient balance.")));
+    }
 }
