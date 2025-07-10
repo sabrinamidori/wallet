@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.math.BigDecimal;
+
 @ExtendWith(SpringExtension.class)
 class PaymentResponseMapperTest {
 
@@ -17,12 +19,12 @@ class PaymentResponseMapperTest {
     @Test
     void testProviderResponseToResponseDTO() {
 
-        var response = ProviderResponse.builder().paymentInfo(PaymentInfo.builder().id("100000").amount("1000").build())
+        var response = ProviderResponse.builder().paymentInfo(PaymentInfo.builder().id("100000").amount(new BigDecimal(1000)).build())
                 .requestInfo(RequestInfo.builder().status("Processing").build()).build();
         var result = paymentResponseMapper.providerResponseToResponseDTO(response);
         Assertions.assertEquals(result.getStatus().getStatus(), response.getRequestInfo().getStatus());
         Assertions.assertEquals(result.getPaymentId(), response.getPaymentInfo().getId());
-        Assertions.assertEquals(result.getPaymentAmount().doubleValue(),Double.parseDouble(response.getPaymentInfo().getAmount()));
+        Assertions.assertEquals(result.getPaymentAmount().doubleValue(),response.getPaymentInfo().getAmount().doubleValue());
     }
 
 }

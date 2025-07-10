@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 
 @Data
 @Builder
 @JsonNaming(PropertyNamingStrategies.LowerCamelCaseStrategy.class)
 public class PaymentInfo {
     private String id;
-    private String amount;
+    private BigDecimal amount;
 }

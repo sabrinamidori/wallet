@@ -31,7 +31,7 @@ public interface WithdrawMapper {
     default WithdrawProviderRequest toProviderRequest(SourceAccountDTO sourceAccount, Payment paymentInfo) {
         return WithdrawProviderRequest.builder()
                 .destination(this.dtoToProviderDestination(paymentInfo.getDestination()))
-                .amount(paymentInfo.getTotal().toString())
+                .amount(paymentInfo.getTotal())
                 .source(this.dtoToProviderSource(sourceAccount)).build();
     }
 

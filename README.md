@@ -28,6 +28,7 @@ mvn clean package -DskipTests
 
 Run the docker. The endpoint will be available 
 ```shell script
+docker-compose build
 docker-compose -f docker-compose.yml up -d
 ```
 To stop docker

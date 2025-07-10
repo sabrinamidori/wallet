@@ -59,7 +59,7 @@ class PaymentServiceImplTest {
         var paymentResponseDTO = new PaymentResponseDTO("547897", new BigDecimal(1000), PaymentStatus.PROCESSING, null);
         when(paymentProviderPort.sendMoney(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(paymentResponseDTO);
         when(walletServicePort.getBalance(anyLong())).thenReturn(new BalanceDTO(1000L, "2000"));
-        var transaction = new TransactionResponseDTO(1000L, 1000L, payment.getAmount().toString());
+        var transaction = new TransactionResponseDTO(1000L, 1000L, payment.getAmount());
         when(walletServicePort.createTransaction(any(TransactionDTO.class))).thenReturn(transaction);
 
         var withdrawRequestDTO = new WithdrawRequestDTO(payment.getUserId(), 1L,

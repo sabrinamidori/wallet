@@ -64,13 +64,13 @@ class PaymentProviderServiceImplTest {
         var source = new SourceAccount("type", new SourceInfo("company"), new AccountInfo("88888", "USD", "777777"));
         var sourceDto = new SourceAccountDTO(source.getType(), source.getSourceInformation().getName(), source.getAccount().getAccountNumber(), source.getAccount().getCurrency(), source.getAccount().getRoutingNumber());
 
-        when(withdrawMapper.toProviderRequest(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(new WithdrawProviderRequest(source, destination, "90000"));
+        when(withdrawMapper.toProviderRequest(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(new WithdrawProviderRequest(source, destination, new BigDecimal(9000)));
         when(paymentProviderClient.sendMoney(any(WithdrawProviderRequest.class))).thenReturn(requestMap);
         when(paymentResponseMapper.providerResponseToResponseDTO(any(ProviderResponse.class))).thenReturn(paymentResponseDTO);
         when(objectMapper.convertValue(any(Map.class), (Class<ProviderResponse>) any()))
                 .thenReturn( ProviderResponse.builder()
                         .requestInfo(new RequestInfo(PaymentProviderStatus.PROCESSING.getStatus(), null))
-                        .paymentInfo(new PaymentInfo("fdhd-555555-77777-999999-10", "9000")).build());
+                        .paymentInfo(new PaymentInfo("fdhd-555555-77777-999999-10", new BigDecimal(9000))).build());
 
         PaymentResponseDTO result = paymentProviderServiceImpl.sendMoney(sourceDto,
                 new Payment(1000L, BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), Long.valueOf(1), destinationDto));
@@ -105,12 +105,12 @@ class PaymentProviderServiceImplTest {
         var sourceDto = new SourceAccountDTO(source.getType(), source.getSourceInformation().getName(), source.getAccount().getAccountNumber(), source.getAccount().getCurrency(), source.getAccount().getRoutingNumber());
 
 
-        when(withdrawMapper.toProviderRequest(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(new WithdrawProviderRequest(source, destination, "90000"));
+        when(withdrawMapper.toProviderRequest(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(new WithdrawProviderRequest(source, destination, new BigDecimal(9000)));
         when(paymentProviderClient.sendMoney(any(WithdrawProviderRequest.class))).thenThrow(exception);
         when(objectMapper.readValue(anyString(), (TypeReference<Map<String, Object>>) any())).thenReturn(requestMap);
         when(objectMapper.readValue(anyString(), eq(ProviderResponse.class))).thenReturn(
                 ProviderResponse.builder()
-                        .paymentInfo(new PaymentInfo(paymentResponseDTO.getPaymentId(), paymentResponseDTO.getPaymentAmount().toString()))
+                        .paymentInfo(new PaymentInfo(paymentResponseDTO.getPaymentId(), paymentResponseDTO.getPaymentAmount()))
                         .requestInfo(new RequestInfo(paymentResponseDTO.getStatus().getStatus(), paymentResponseDTO.getError())).build());
         when(paymentResponseMapper.providerResponseToResponseDTO(any(ProviderResponse.class))).thenReturn(paymentResponseDTO);
 
@@ -137,7 +137,7 @@ class PaymentProviderServiceImplTest {
         var sourceDto = new SourceAccountDTO(source.getType(), source.getSourceInformation().getName(), source.getAccount().getAccountNumber(), source.getAccount().getCurrency(), source.getAccount().getRoutingNumber());
         var payment = new Payment(1000L, BigDecimal.valueOf(10000), BigDecimal.valueOf(1000), Long.valueOf(1), destinationDto);
 
-        when(withdrawMapper.toProviderRequest(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(new WithdrawProviderRequest(source, destination, "90000"));
+        when(withdrawMapper.toProviderRequest(any(SourceAccountDTO.class), any(Payment.class))).thenReturn(new WithdrawProviderRequest(source, destination, new BigDecimal(9000)));
         when(paymentProviderClient.sendMoney(any(WithdrawProviderRequest.class))).thenThrow(exception);
         when(objectMapper.readValue(anyString(), (TypeReference<Map<String, Object>>) any())).thenReturn(requestMap);
 
