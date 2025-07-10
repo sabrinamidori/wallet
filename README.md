@@ -26,10 +26,10 @@ mvn install
 mvn clean package -DskipTests
 ```
 
-Run the docker. The endpoint will be available 
+Run the docker. The endpoint will be available on http://localhost:8082/payment
 ```shell script
 docker-compose build
-docker-compose -f docker-compose.yml up -d
+docker-compose up -d
 ```
 To stop docker
 ```shell scrip
@@ -37,5 +37,5 @@ docker-compose down --remove-orphans
 ```
 
 ## Documents
-Postman collection: ./docs/Payments.postman_collection.json
-[Diagrams drawio](https://app.diagrams.net/): ./docs/ontop_assessment.drawio
+- Postman collection: ./docs/Payments.postman_collection.json
+- [Diagrams drawio](https://app.diagrams.net/): ./docs/ontop_assessment.drawio
