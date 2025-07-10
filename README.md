@@ -37,3 +37,4 @@ docker-compose down --remove-orphans
 
 ## Documents
 Postman collection: ./docs/Payments.postman_collection.json
+[Diagrams drawio](https://app.diagrams.net/): ./docs/ontop_assessment.drawio
